@@ -12,15 +12,16 @@ import {makeStyles} from '@mui/styles';
 
 import {toSentenceCase} from '../EventsTable/EventsTable';
 
-const ITEM_HEIGHT      = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps        = {
+const menuProps        = {
     PaperProps: {
         style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width:     250,
-        },
-    },
+            maxHeight: 300,
+            backgroundColor:'#171924',
+            opacity:0.95,
+            color:'#ffffff',
+            borderRadius:'12px',
+        }
+    }
 };
 
 const useStyles = makeStyles({
@@ -71,6 +72,14 @@ const useStyles = makeStyles({
         "& div":                                                    {
             color: "white"
         },
+    },
+    menuItem:{
+        "&.MuiMenuItem-root.Mui-selected": {
+        backgroundColor: `rgba(121, 127, 139,  0.22)`
+        },
+        "&.MuiMenuItem-root:hover":{
+            backgroundColor: `rgba(121, 127, 139,  0.14)`
+        }
     }
 });
 
@@ -117,9 +126,10 @@ const EventsFilter = (props) => {
                             ))}
                         </Box>
                     )}
-                    MenuProps={MenuProps}>
+                    MenuProps={menuProps}>
                     {props.eventTypes.map((type) => (
                         <MenuItem
+                            className={classes.menuItem}
                             key={type}
                             value={type}>
                             {toSentenceCase(type)}
