@@ -10,77 +10,83 @@ import Chip from '@mui/material/Chip';
 import CancelIcon from "@material-ui/icons/Cancel";
 import {makeStyles} from '@mui/styles';
 
-import './EventsFilter.css'
 import {toSentenceCase} from '../EventsTable/EventsTable';
 
-const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT      = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const MenuProps        = {
     PaperProps: {
         style: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
+            width:     250,
         },
     },
 };
 
-
 const useStyles = makeStyles({
-    container:{
-
+    box:   {
+        width:    "fit-content",
+        maxWidth: "100%",
+        display:  'flex',
+        gap:      '3px'
     },
-    label:{
-        color: "#919EAB !important",
+    chip:  {
+        backgroundColor: ` rgba(255, 255, 255, 0.16) !important`,
+        whiteSpace:      'nowrap',
+        overflow:        'hidden',
+        textOverflow:    'ellipsis',
+    },
+    label: {
+        color:           "#919EAB !important",
         "&.Mui-focused": {
             color: "#919EAB !important",
         }
     },
-    root: {
-        width:'400px',
-        height:'61px',
-        "& .MuiSvgIcon-root": {
+    root:  {
+        width:                                                      '400px',
+        height:                                                     '61px',
+        "& .MuiSvgIcon-root":                                       {
             color: "white",
         },
-        "&.MuiInputBase-root": {
-            "& fieldset": {
+        "&.MuiInputBase-root":                                      {
+            "& fieldset":             {
                 borderColor: `rgba(255, 255, 255, 0.16)`
             },
             "&.Mui-focused fieldset": {
                 borderColor: `rgba(255, 255, 255, 0.16)`
             }
         },
-        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            border: "1px solid #fffffff",
+        "&.Mui-focused .MuiOutlinedInput-notchedOutline":           {
+            border:       "1px solid #fffffff",
             borderRadius: "5px 5px 0 0"
         },
         "&.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderRadius:'8px',
-            borderColor: `rgba(255, 255, 255, 0.16)`,
-            border: `1px solid`
+            borderRadius: '8px',
+            borderColor:  `rgba(255, 255, 255, 0.16)`,
+            border:       `1px solid`
         },
-        "& .MuiBox .MuiChip-root":{
-          backgroundColor:"white"
+        "& .MuiBox .MuiChip-root":                                  {
+            backgroundColor: "white"
         },
-        "& div": {
+        "& div":                                                    {
             color: "white"
         },
     }
 });
 
-const EventsFilter=(props) => {
+const EventsFilter = (props) => {
     const classes = useStyles()
 
     const [selectedEvents, setEventsList] = useState([]);
 
-
     const handleChange = (event) => {
-        const {target: { value }} = event;
+        const {target: {value}} = event;
         setEventsList(value);
         props.onEventsTypeFilterChange(value)
     };
 
     const handleDelete = (e, value) => {
-//        e.preventDefault();
+        e.preventDefault();
         const updatedList = _.without(selectedEvents, value);
         setEventsList(updatedList);
         props.onEventsTypeFilterChange(updatedList)
@@ -88,26 +94,25 @@ const EventsFilter=(props) => {
 
     return (
         <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel shrink  className={classes.label} id="multiple-chip-label">Event Type Filter</InputLabel>
+            <FormControl sx={{
+                m:     1,
+                width: 300
+            }}>
+                <InputLabel shrink className={classes.label} id="multiple-chip-label">Event Type Filter</InputLabel>
                 <Select
                     className={classes.root}
-                    labelId="multiple-chip-label"
-                    id="demo-multiple-chip"
-                    multiple
-                    value={selectedEvents}
-                    onChange={handleChange}
+                    labelId="multiple-chip-label" id="demo-multiple-chip"
+                    multiple value={selectedEvents} onChange={handleChange}
                     input={<OutlinedInput id="select-multiple-chip" notched label="Event Type Filter"/>}
                     renderValue={(selected) => (
-                        <Box sx={{ width: "fit-content",
-                            maxWidth: "100%",  display: 'flex',  gap: 0.5 }}>
+                        <Box className={classes.box}>
                             {selected.map((value) => (
-                                <Chip className='selected-chip'
+                                <Chip className={classes.chip}
                                       deleteIcon={
-                                    <CancelIcon style={{color:'#919EAB'}}
-                                        onMouseDown={(event) => event.stopPropagation()}/>}
+                                          <CancelIcon style={{color: '#919EAB'}}
+                                                      onMouseDown={(event) => event.stopPropagation()}/>}
                                       onDelete={(e) => handleDelete(e, value)}
-                                      key={value} title={toSentenceCase(value)} label={toSentenceCase(value)} />
+                                      key={value} title={toSentenceCase(value)} label={toSentenceCase(value)}/>
 
                             ))}
                         </Box>
