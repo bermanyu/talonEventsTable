@@ -1,0 +1,41 @@
+.events-table {
+  height: 62.5vh;
+  width:  90vw;
+  background-color: #222B36;
+  }
+
+.table-title{
+  color: white;
+  font-size: 17px;
+  display: inline-block;
+  margin-left: 16px;
+  margin-top: 17px;
+  }
+
+.badge{
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 8px;
+  font-style: normal;
+  font-size: 11px;
+  }
+.temp{
+  display: block;
+  align-items: flex-end;
+  justify-content: space-between;
+  }
+/*.temp2{ padding-left: 50px}*/
+.events-filter-container{
+  position: relative;
+  left:8px;
+  }
+.events-table.events-table-data-grid{
+  /*width: 95%;*/
+  color: #FFFFFF;
+  border-color: transparent;
+  }
+.events-table.rdg-cell [aria-selected='true'] {
+  box-shadow: none;
+  }
+
+
